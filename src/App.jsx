@@ -3,7 +3,7 @@ import "./App.css";
 import SideBar from "./components/SideBar.jsx";
 import Main from "./components/Main.jsx";
 import { fetchManufacturers, fetchCategories, fetchCarListings, fetchModelsForManufacturers } from "./components/api.jsx";
-
+import Login from "./login/login.jsx";
 function App() {
     const [manufacturers, setManufacturers] = useState([]);
     const [vehicleType, setVehicleType] = useState("car");
@@ -22,6 +22,11 @@ function App() {
     const [favorites, setFavorites] = useState([]);
     // აქტიური ტაბის სახელმწიფო (ძებნა ან ფავორიტები)
     const [activeTab, setActiveTab] = useState("search");
+    const [showLogin, setShowLogin] = useState(false);
+
+    const handleLoginClick = () => {
+        setShowLogin(true);
+    };
 
     // ფავორიტების ჩატვირთვა localStorage-დან
     useEffect(() => {
@@ -153,14 +158,12 @@ function App() {
         return favorites.some(fav => fav.car_id === carId);
     };
 
-    // ფავორიტების ტაბზე გადასვლა
-
-
-    // ძებნის ტაბზე გადასვლა
 
 
     return (
         <div className="app-container">
+            <button className={"login-register"} onClick={handleLoginClick}>Login</button>
+            {showLogin && <Login setShowLogin={setShowLogin} />}  {/* Login ფორმა */}
             <SideBar
                 setVehicleType={setVehicleType}
                 saleType={saleType}
